@@ -5,11 +5,22 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+if test "${_mosaic_deploy_cp:-false}" == true ; then
+	test -n "${_mosaic_deploy_cp_store}"
+	_mosaic_deploy_cp_target="${_mosaic_deploy_cp_store}/${_package_name}--${_package_version}.mb"
+	echo "[ii] deploying via \`cp\` method to \`${_mosaic_deploy_cp_target}\`..." >&2
+	cp -T -- "${_outputs}/bundle.mb" "${_mosaic_deploy_cp_target}"
+fi
 
-"${_scripts}/deploy-core"
-"${_scripts}/deploy-packages"
-"${_scripts}/deploy-overlays"
-"${_scripts}/deploy-clean"
-
+if test "${_mosaic_deploy_me2b:-false}" == true ; then
+	test -n "${_mosaic_deploy_me2b_credentials}"
+	test -n "${_mosaic_deploy_me2b_store}"
+	_mosaic_deploy_me2b_target="${_mosaic_deploy_me2b_store}/${_me2b_group//.//}/${_package_name//-/_}/${_package_name//-/_}-${_package_version}-${_me2b_arch}.mb"
+	echo "[ii] deploying via \`me2b\` method to \`${_mosaic_deploy_me2b_target}\`..." >&2
+	env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
+			--anyauth --user "${_mosaic_deploy_me2b_credentials}" \
+			--upload-file "${_outputs}/bundle.mb" \
+			-- "${_mosaic_deploy_me2b_target}"
+fi
 
 exit 0

@@ -26,7 +26,7 @@ while read _prefix _overlay ; do
 			--owner=0 --group=0 \
 			--directory="${_outputs}/rootfs/${_prefix}"
 	
-done <"${_workbench}/sources/overlays.txt"
+done <"${_sources}/overlays.txt"
 
 
 exit 0

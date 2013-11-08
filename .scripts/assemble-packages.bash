@@ -14,7 +14,7 @@ while read _package ; do
 	setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_install_arguments[@]}" \
 			"${_package}"
 	
-done <"${_workbench}/sources/packages.txt"
+done <"${_sources}/packages.txt"
 
 
 exit 0
