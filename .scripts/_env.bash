@@ -106,5 +106,6 @@ _python2_env=(
 )
 
 
-_package_name="$( basename -- "$( readlink -e -- . )" )"
-_package_version="${mosaic_distribution_version:-0.7.0."$( date -u '+%s' )"}"
+_bundle_name="$( basename -- "$( readlink -e -- . )" )"
+_bundle_timestamp="$( date -u '+%s' )"
+_bundle_version="${mosaic_distribution_version:-0.7.0.${_bundle_timestamp}}"

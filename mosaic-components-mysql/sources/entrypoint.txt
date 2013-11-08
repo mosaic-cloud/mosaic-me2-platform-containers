@@ -1,1 +1,1 @@
-/opt/mosaic-components-mysql/bin/mosaic-components-mysql--run-component 00000000adf010553c8b9b9a8b3f78547f6b54c5 /dev/fd/%(config_fd)
+/opt/mosaic-components-mysql/bin/mosaic-components-mysql--run-component 00000000adf010553c8b9b9a8b3f78547f6b54c5 /dev/fd/%{config_fd}

@@ -26,7 +26,7 @@ done
 echo "[ii] creating rootfs CPIO archive..." >&2
 (
 	cd -- "${_outputs}/rootfs"
-	exec find . -xdev -print0
+	exec find . -xdev -depth -print0
 ) | \
 (
 	cd -- "${_outputs}/rootfs"
@@ -41,7 +41,7 @@ echo "[ii] creating rootfs CPIO archive..." >&2
 echo "[ii] creating rootfs TAR archive..." >&2
 (
 	cd -- "${_outputs}/rootfs"
-	exec find . -xdev -print0
+	exec find . -xdev -depth -print0
 ) | \
 (
 	cd -- "${_outputs}/rootfs"
@@ -49,7 +49,8 @@ echo "[ii] creating rootfs TAR archive..." >&2
 		--create \
 		--format gnu \
 		--numeric-owner \
-		--null --files-from /dev/stdin
+		--null --files-from /dev/stdin \
+		--no-recursion
 ) \
 >|"${_outputs}/rootfs.tar"
 
@@ -64,13 +65,13 @@ cat >|"${_outputs}/bundle/spec.json" <<EOS
 	"bundle": {
 		"classifier": "${_me2b_arch}",
 		"group-id": "${_me2b_group}",
-		"package-id": "${_package_name//-/_}",
+		"package-id": "${_bundle_name//-/_}",
 		"type": "container-bundle",
-		"version": "${_package_version}"
+		"version": "${_bundle_version}"
 	},
 	"configuration": {
 		"entrypoints": {
-			"container-bundle.init.args": "$( echo "${_sources}/entrypoint.txt" )"
+			"container-bundle.init": "$( cat -- "${_sources}/entrypoint.txt" )"
 		},
 		"environment": {}
 	}
