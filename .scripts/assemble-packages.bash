@@ -15,11 +15,9 @@ while read _package ; do
 			"${_package}"
 	
 done < <(
-	sed -r \
-			-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
-			-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
-			-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
-		<"${_sources}/packages.txt"
+	if test -e "${_sources}/packages.txt" ; then
+		"${_sed_variables[@]}" <"${_sources}/packages.txt"
+	fi
 )
 
 

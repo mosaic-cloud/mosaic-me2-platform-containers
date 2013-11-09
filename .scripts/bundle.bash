@@ -23,20 +23,20 @@ do
 done
 
 
-echo "[ii] creating rootfs CPIO archive..." >&2
-(
-	cd -- "${_outputs}/rootfs"
-	exec find . -xdev -depth -print0
-) | \
-(
-	cd -- "${_outputs}/rootfs"
-	exec env -i "${_generic_env[@]}" "${_cpio_bin}" \
-		--create \
-		--format newc \
-		--null \
-		--quiet
-) \
->|"${_outputs}/rootfs.cpio"
+#echo "[ii] creating rootfs CPIO archive..." >&2
+#(
+#	cd -- "${_outputs}/rootfs"
+#	exec find . -xdev -depth -print0
+#) | \
+#(
+#	cd -- "${_outputs}/rootfs"
+#	exec env -i "${_generic_env[@]}" "${_cpio_bin}" \
+#		--create \
+#		--format newc \
+#		--null \
+#		--quiet
+#) \
+#>|"${_outputs}/rootfs.cpio"
 
 echo "[ii] creating rootfs TAR archive..." >&2
 (
@@ -72,11 +72,7 @@ cat >|"${_outputs}/bundle/spec.json" <<EOS
 	"configuration": {
 		"entrypoints": {
 			"container-bundle.init": "$(
-					sed -r \
-							-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
-							-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
-							-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
-						<"${_sources}/entrypoint.txt" )"
+					"${_sed_variables[@]}" <"${_sources}/entrypoint.txt" )"
 		},
 		"environment": {}
 	}

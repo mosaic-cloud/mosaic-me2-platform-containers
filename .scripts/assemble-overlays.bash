@@ -27,11 +27,23 @@ while read _prefix _overlay ; do
 			--directory="${_outputs}/rootfs/${_prefix}"
 	
 done < <(
-	sed -r \
-			-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
-			-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
-			-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
-		< "${_sources}/overlays.txt"
+	if test -e "${_sources}/overlays.txt" ; then
+		"${_sed_variables[@]}" <"${_sources}/overlays.txt"
+	fi
+)
+
+while read _link _target ; do
+	
+	if ! test -e "$( dirname -- "${_outputs}/rootfs/${_link}" )" ; then
+		mkdir -p -m 0755 -- "$( dirname -- "${_outputs}/rootfs/${_link}" )"
+	fi
+	
+	ln -s -f -T -- "${_target}" "${_outputs}/rootfs/${_link}"
+	
+done < <(
+	if test -e "${_sources}/symlinks.txt" ; then
+		"${_sed_variables[@]}" <"${_sources}/symlinks.txt"
+	fi
 )
 
 

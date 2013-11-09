@@ -12,7 +12,7 @@ while read _method _path ; do
 		( delete-children )
 			find "${_outputs}/rootfs/${_path}" -xdev -mindepth 1 -delete
 		;;
-		( delete-recursive )
+		( delete-recursive | delete )
 			find "${_outputs}/rootfs/${_path}" -xdev -delete
 		;;
 		( delete-empty-folders )
@@ -28,11 +28,9 @@ while read _method _path ; do
 	esac
 	
 done < <(
-	sed -r \
-			-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
-			-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
-			-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
-		<"${_sources}/trimmings.txt"
+	if test -e "${_sources}/trimmings.txt" ; then
+		"${_sed_variables[@]}" <"${_sources}/trimmings.txt"
+	fi
 )
 
 

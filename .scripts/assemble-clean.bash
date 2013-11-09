@@ -7,6 +7,7 @@ fi
 
 
 if test -d "${_outputs}/rootfs" ; then
+	chmod -R +w -- "${_outputs}/rootfs"
 	find "${_outputs}/rootfs" -xdev -delete
 fi
 
