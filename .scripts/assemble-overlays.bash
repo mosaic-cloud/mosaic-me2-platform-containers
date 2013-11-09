@@ -26,7 +26,13 @@ while read _prefix _overlay ; do
 			--owner=0 --group=0 \
 			--directory="${_outputs}/rootfs/${_prefix}"
 	
-done <"${_sources}/overlays.txt"
+done < <(
+	sed -r \
+			-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
+			-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
+			-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
+		< "${_sources}/overlays.txt"
+)
 
 
 exit 0

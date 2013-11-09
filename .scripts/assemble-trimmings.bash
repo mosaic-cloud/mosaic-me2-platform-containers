@@ -27,7 +27,13 @@ while read _method _path ; do
 		;;
 	esac
 	
-done <"${_sources}/trimmings.txt"
+done < <(
+	sed -r \
+			-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
+			-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
+			-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
+		<"${_sources}/trimmings.txt"
+)
 
 
 exit 0

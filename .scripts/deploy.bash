@@ -15,7 +15,7 @@ fi
 if test "${_mosaic_deploy_me2b:-false}" == true ; then
 	test -n "${_mosaic_deploy_me2b_credentials}"
 	test -n "${_mosaic_deploy_me2b_store}"
-	_mosaic_deploy_me2b_target="${_mosaic_deploy_me2b_store}/${_me2b_group//.//}/${_bundle_name//-/_}/${_bundle_name//-/_}-${_bundle_version}-${_me2b_arch}.mb"
+	_mosaic_deploy_me2b_target="${_mosaic_deploy_me2b_store}/${_me2b_group//.//}/${_bundle_name}/${_bundle_name}-${_bundle_version}-${_me2b_arch}.mb"
 	echo "[ii] deploying via \`me2b\` method to \`${_mosaic_deploy_me2b_target}\`..." >&2
 	env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
 			--anyauth --user "${_mosaic_deploy_me2b_credentials}" \

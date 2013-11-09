@@ -65,13 +65,18 @@ cat >|"${_outputs}/bundle/spec.json" <<EOS
 	"bundle": {
 		"classifier": "${_me2b_arch}",
 		"group-id": "${_me2b_group}",
-		"package-id": "${_bundle_name//-/_}",
+		"package-id": "${_bundle_name}",
 		"type": "container-bundle",
 		"version": "${_bundle_version}"
 	},
 	"configuration": {
 		"entrypoints": {
-			"container-bundle.init": "$( cat -- "${_sources}/entrypoint.txt" )"
+			"container-bundle.init": "$(
+					sed -r \
+							-e 's#@\{distribution_version\}@#'"${_distribution_version}"'#g' \
+							-e 's#@\{bundle_version\}@#'"${_bundle_version}"'#g' \
+							-e 's#@\{bundle_timestamp\}@#'"${_bundle_timestamp}"'#g' \
+						<"${_sources}/entrypoint.txt" )"
 		},
 		"environment": {}
 	}

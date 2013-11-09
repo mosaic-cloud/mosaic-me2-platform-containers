@@ -1,1 +1,1 @@
-/opt/mosaic-components-mysql http://data.volution.ro/ciprian/public/mosaic/packages/mosaic-components-mysql--0.7.0.tar.gz
+/opt/mosaic-components-mysql http://data.volution.ro/ciprian/public/mosaic/packages/mosaic-components-mysql--@{distribution_version}@.tar.gz
