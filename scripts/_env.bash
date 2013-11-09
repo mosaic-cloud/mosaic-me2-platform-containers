@@ -72,7 +72,8 @@ _zypper_arguments=(
 		--non-interactive
 		--no-refresh
 		--gpg-auto-import-keys
-		--verbose
+		# --verbose
+		--quiet
 )
 _zypper_addrepo_arguments=(
 		"${_zypper_arguments[@]}"
@@ -92,7 +93,8 @@ _zypper_env=(
 )
 
 _curl_arguments=(
-		--progress-bar
+		# --progress-bar
+		--silent
 )
 _curl_env=(
 		"${_generic_env[@]}"
@@ -109,9 +111,9 @@ _python2_env=(
 _distribution_version="${mosaic_distribution_version:-0.7.0}"
 _bundle_name="$( basename -- "$( readlink -e -- . )" )"
 _bundle_name="${_bundle_name//-/_}"
+_bundle_version="${mosaic_bundle_version:-${_distribution_version}}"
 _bundle_timestamp="$( date -u '+%s' )"
 _bundle_revision="${mosaic_bundle_revision:-${_bundle_timestamp}}"
-_bundle_version="${mosaic_bundle_version:-${_distribution_version}.${_bundle_revision}}"
 
 
 _sed_variables=(

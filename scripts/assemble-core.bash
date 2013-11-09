@@ -10,6 +10,8 @@ test ! -e "${_outputs}/rootfs"
 mkdir -m 0755 -- "${_outputs}/rootfs"
 
 
+echo "[ii] installing core repositories..." >&2
+
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
 		http://download.opensuse.org/update/12.3 opensuse--updates--oss
 
@@ -22,6 +24,8 @@ setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypp
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
 		http://download.opensuse.org/distribution/12.3/repo/non-oss opensuse--packages--non-oss
 
+
+echo "[ii] installing core packages..." >&2
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_install_arguments[@]}" \
 		base."${_zypper_arch}"

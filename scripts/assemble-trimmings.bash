@@ -6,6 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 
+echo "[ii] applying trimmings..." >&2
+
 while read _method _path ; do
 	
 	case "${_method}" in

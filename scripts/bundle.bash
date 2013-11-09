@@ -9,7 +9,8 @@ fi
 test -e "${_outputs}/rootfs"
 
 
-echo "[ii] cleaning old artifacts..." >&2
+echo "[ii] cleaning artifacts..." >&2
+
 for _path in \
 			"${_outputs}/rootfs.cpio" "${_outputs}/rootfs.tar" \
 			"${_outputs}/bundle/rootfs" "${_outputs}/bundle/spec.json" "${_outputs}/bundle/MANIFEST.mf" \
@@ -67,7 +68,7 @@ cat >|"${_outputs}/bundle/spec.json" <<EOS
 		"group-id": "${_me2b_group}",
 		"package-id": "${_bundle_name}",
 		"type": "container-bundle",
-		"version": "${_bundle_version}"
+		"version": "${_bundle_version}.${_bundle_revision}"
 	},
 	"configuration": {
 		"entrypoints": {

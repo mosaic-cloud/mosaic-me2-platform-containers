@@ -9,6 +9,8 @@ fi
 test -e "${_outputs}/rootfs"
 
 
+echo "[ii] applying overlays..." >&2
+
 while read _prefix _overlay ; do
 	
 	if ! test -e "${_outputs}/rootfs/${_prefix}" ; then
@@ -31,6 +33,9 @@ done < <(
 		"${_sed_variables[@]}" <"${_sources}/overlays.txt"
 	fi
 )
+
+
+echo "[ii] applying symlinks..." >&2
 
 while read _link _target ; do
 	

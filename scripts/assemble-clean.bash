@@ -6,6 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 
+echo "[ii] cleaning rootfs..." >&2
+
 if test -d "${_outputs}/rootfs" ; then
 	chmod -R +w -- "${_outputs}/rootfs"
 	find "${_outputs}/rootfs" -xdev -delete

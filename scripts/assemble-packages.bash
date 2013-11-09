@@ -9,6 +9,8 @@ fi
 test -e "${_outputs}/rootfs"
 
 
+echo "[ii] installing packages..." >&2
+
 while read _package ; do
 	
 	setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_install_arguments[@]}" \

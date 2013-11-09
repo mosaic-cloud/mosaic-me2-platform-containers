@@ -23,8 +23,8 @@ while read _container ; do
 	fi
 	echo "[--]" >&2
 	
-done <(
-	find "${_workbench}/containers" -xdev -maxdepth 1 -type d -printf '%f\n'
+done < <(
+	find "${_workbench}/containers" -xdev -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
 )
 
 exit 0
