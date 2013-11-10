@@ -10,4 +10,7 @@ fi
 "${_scripts}/bundle"
 
 
+echo "[ii] packaged \`"${_me2_group}:${_bundle_name}:${_bundle_version}.${_bundle_revision}:${_me2_arch}"\`;" >&2
+
+
 exit 0

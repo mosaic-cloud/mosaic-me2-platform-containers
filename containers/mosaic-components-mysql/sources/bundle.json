@@ -1,0 +1,19 @@
+{
+	"spec-version": "0.1",
+	"bundle": {
+		"classifier": "@{me2_arch}",
+		"group-id": "@{me2_group}",
+		"package-id": "@{bundle_name}",
+		"type": "container-bundle",
+		"version": "@{bundle_version}.@{bundle_revision}"
+	},
+	"configuration": {
+		"entrypoints": {
+			"container-bundle.init":
+					"/opt/mosaic-components-mysql/bin/mosaic-components-mysql--run-component 00000000adf010553c8b9b9a8b3f78547f6b54c5 /dev/fd/%{config_fd}"
+		},
+		"environment": {
+			"mosaic_component_log" : "/tmp/log.txt"
+		}
+	}
+}

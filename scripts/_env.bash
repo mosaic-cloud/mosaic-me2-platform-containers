@@ -13,8 +13,8 @@ _outputs="${_workbench}/.outputs"
 _tools="${_workbench}/.tools"
 _temporary="/tmp"
 
-_me2b_group=ro.ieat.mosaic.bundles
-_me2b_arch=x86
+_me2_group=ro.ieat.mosaic.bundles
+_me2_arch=x86
 _linux_arch=i686
 _zypper_arch=i586
 
@@ -118,7 +118,6 @@ _distribution_version="${mosaic_distribution_version:-0.7.0}"
 _bundle_name="$( basename -- "$( readlink -e -- . )" )"
 _bundle_name="${_bundle_name//-/_}"
 _bundle_version="${mosaic_bundle_version:-${_distribution_version}}"
-_bundle_timestamp="$( date -u '+%s' )"
 _bundle_revision="${mosaic_bundle_revision:-${_bundle_timestamp}}"
 
 
@@ -128,4 +127,6 @@ _sed_variables=(
 			-e 's#@\{bundle_version\}#'"${_bundle_version}"'#g'
 			-e 's#@\{bundle_revision\}#'"${_bundle_revision}"'#g'
 			-e 's#@\{bundle_timestamp\}#'"${_bundle_timestamp}"'#g'
+			-e 's#@\{me2_group\}#'"${_me2_group}"'#g'
+			-e 's#@\{me2_arch\}#'"${_me2_arch}"'#g'
 )

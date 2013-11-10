@@ -60,25 +60,9 @@ echo "[ii] creating bundle..." >&2
 
 mkdir "${_outputs}/bundle"
 
-cat >|"${_outputs}/bundle/spec.json" <<EOS
-{
-	"spec-version": "0.1",
-	"bundle": {
-		"classifier": "${_me2b_arch}",
-		"group-id": "${_me2b_group}",
-		"package-id": "${_bundle_name}",
-		"type": "container-bundle",
-		"version": "${_bundle_version}.${_bundle_revision}"
-	},
-	"configuration": {
-		"entrypoints": {
-			"container-bundle.init": "$(
-					"${_sed_variables[@]}" <"${_sources}/entrypoint.txt" )"
-		},
-		"environment": {}
-	}
-}
-EOS
+"${_sed_variables[@]}" \
+	>|"${_outputs}/bundle/spec.json" \
+	<"${_sources}/bundle.json"
 
 ln -T -- "${_outputs}/rootfs.tar" "${_outputs}/bundle/rootfs"
 
