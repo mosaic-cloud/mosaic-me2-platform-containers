@@ -108,6 +108,12 @@ _python2_env=(
 )
 
 
+if test -e "${_outputs}/bundle.timestamp" ; then
+	_bundle_timestamp="$( date -u -r "${_outputs}/bundle.timestamp" '+%s' )"
+else
+	_bundle_timestamp="$( date -u '+%s' )"
+fi
+
 _distribution_version="${mosaic_distribution_version:-0.7.0}"
 _bundle_name="$( basename -- "$( readlink -e -- . )" )"
 _bundle_name="${_bundle_name//-/_}"

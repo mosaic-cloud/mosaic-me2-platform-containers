@@ -31,4 +31,7 @@ if test ! -e "${_outputs}" ; then
 fi
 
 
+touch -d "$( date -u -d "@${_bundle_timestamp}" )" -- "${_outputs}/bundle.timestamp"
+
+
 exit 0
