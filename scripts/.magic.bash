@@ -5,6 +5,7 @@ if ! test "${#}" -le 1 ; then
 	exit 1
 fi
 
+
 while read _container ; do
 	
 	echo "[ii] preparing \`${_container}\`..." >&2
@@ -23,8 +24,13 @@ while read _container ; do
 	fi
 	echo "[--]" >&2
 	
+	if test "${_mosaic_timestamp_flush:-true}" == true ; then
+		touch -- "${_workbench}/containers/${_container}/.outputs/bundle.timestamp"
+	fi
+	
 done < <(
 	find "${_workbench}/containers" -xdev -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
 )
+
 
 exit 0

@@ -1,5 +1,6 @@
 /usr/share/mysql/charsets /usr/share/mariadb/charsets
-/usr/share/mysql/plugins /usr/lib/mysql/plugins
+/usr/share/mysql/plugin /usr/lib64/mysql/plugin
 /usr/share/mysql/mysql_system_tables.sql /usr/share/mariadb/mysql_system_tables.sql
 /usr/share/mysql/mysql_system_tables_data.sql /usr/share/mariadb/mysql_system_tables_data.sql
 /usr/share/mysql/mysql_performance_tables.sql /usr/share/mariadb/mysql_performance_tables.sql
+/usr/bin/mysqld /usr/sbin/mysqld

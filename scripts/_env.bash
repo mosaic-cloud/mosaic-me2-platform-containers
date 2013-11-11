@@ -14,9 +14,9 @@ _tools="${_workbench}/.tools"
 _temporary="/tmp"
 
 _me2_group=ro.ieat.mosaic.bundles
-_me2_arch=x86
-_linux_arch=i686
-_zypper_arch=i586
+_me2_arch=x86_64
+_linux_arch=x86_64
+_zypper_arch=x86_64
 
 _PATH_EXTRA="${PATH_EXTRA:-}"
 _PATH_CLEAN="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
