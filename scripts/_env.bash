@@ -71,6 +71,7 @@ _zypper_arguments=(
 		--root "${_outputs}/rootfs"
 		--non-interactive
 		--no-refresh
+		--no-gpg-checks
 		--gpg-auto-import-keys
 		# --verbose
 		--quiet
@@ -79,6 +80,10 @@ _zypper_addrepo_arguments=(
 		"${_zypper_arguments[@]}"
 		addrepo
 			--no-keep-packages
+)
+_zypper_refresh_arguments=(
+		"${_zypper_arguments[@]}"
+		refresh
 )
 _zypper_install_arguments=(
 		"${_zypper_arguments[@]}"
@@ -124,6 +129,7 @@ _bundle_revision="${mosaic_bundle_revision:-${_bundle_timestamp}}"
 _sed_variables=(
 	sed -r
 			-e 's#@\{distribution_version\}#'"${_distribution_version}"'#g'
+			-e 's#@\{bundle_name\}#'"${_bundle_name}"'#g'
 			-e 's#@\{bundle_version\}#'"${_bundle_version}"'#g'
 			-e 's#@\{bundle_revision\}#'"${_bundle_revision}"'#g'
 			-e 's#@\{bundle_timestamp\}#'"${_bundle_timestamp}"'#g'
