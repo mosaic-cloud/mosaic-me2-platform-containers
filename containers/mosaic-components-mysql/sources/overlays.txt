@@ -1,1 +1,2 @@
-/opt/mosaic-components-mysql http://data.volution.ro/ciprian/public/mosaic/packages/mosaic-components-mysql--@{distribution_version}.tar.gz
+/opt/mosaic-components-mysql curl-tar-gz http://data.volution.ro/ciprian/public/mosaic/packages/mosaic-components-mysql--@{distribution_version}.tar.gz
+/opt/mosaic-components-mysql/bin/mosaic-components-mysql--run-container sources-file+x run-container.bash

@@ -11,22 +11,57 @@ test -e "${_outputs}/rootfs"
 
 echo "[ii] applying overlays..." >&2
 
-while read _prefix _overlay ; do
+while read _prefix _type _overlay ; do
 	
-	if ! test -e "${_outputs}/rootfs/${_prefix}" ; then
-		mkdir -p -m 0755 -- "${_outputs}/rootfs/${_prefix}"
-	fi
+	case "${_type}" in
+		( curl-tar-gz )
+			if ! test -e "${_outputs}/rootfs/${_prefix}" ; then
+				mkdir -p -m 0755 -- "${_outputs}/rootfs/${_prefix}"
+			fi
+		;;
+		( curl-file | curl-file+* | sources-file | sources-file+* )
+			if ! test -e "${_outputs}/rootfs/$( dirname -- "${_prefix}" )" ; then
+				mkdir -p -m 0755 -- "${_outputs}/rootfs/$( dirname -- "${_prefix}" )"
+			fi
+		;;
+	esac
 	
-	env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
-			-- "${_overlay}" \
-	| env -i "${_generic_env[@]}" "${_tar_bin}" \
-			--extract \
-			--gunzip \
-			--overwrite \
-			--no-overwrite-dir \
-			--preserve-permissions \
-			--owner=0 --group=0 \
-			--directory="${_outputs}/rootfs/${_prefix}"
+	case "${_type}" in
+		( curl-tar-gz )
+			env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
+					-- "${_overlay}" \
+			| env -i "${_generic_env[@]}" "${_tar_bin}" \
+					--extract \
+					--gunzip \
+					--overwrite \
+					--no-overwrite-dir \
+					--preserve-permissions \
+					--owner=0 --group=0 \
+					--directory="${_outputs}/rootfs/${_prefix}"
+		;;
+		( curl-file | curl-file+* )
+			env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
+					-- "${_overlay}" \
+				>"${_outputs}/rootfs/${_prefix}"
+			chmod 444 -- "${_outputs}/rootfs/${_prefix}"
+		;;
+		( sources-file | sources-file+* )
+			cp --no-preserve=all -L -T -- "${_sources}/${_overlay}" "${_outputs}/rootfs/${_prefix}"
+			chmod 444 -- "${_outputs}/rootfs/${_prefix}"
+		;;
+		( * )
+			false
+		;;
+	esac
+	
+	case "${_type}" in
+		( curl-file+x | sources-file+x )
+			chmod 555 -- "${_outputs}/rootfs/${_prefix}"
+		;;
+		( *+* )
+			false
+		;;
+	esac
 	
 done < <(
 	if test -e "${_sources}/overlays.txt" ; then

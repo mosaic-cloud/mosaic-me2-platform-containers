@@ -17,14 +17,14 @@ while read _container ; do
 	echo "[--]" >&2
 	
 	echo "[ii] deploying \`${_container}\`..." >&2
-	if test "${_mosaic_deploy_skip:-true}" != true ; then
+	if test "${pallur_deploy_skip:-true}" != true ; then
 		"${_workbench}/containers/${_container}/scripts/deploy"
 	else
 		echo "[ww]   -- skipped!" >&2
 	fi
 	echo "[--]" >&2
 	
-	if test "${_mosaic_timestamp_flush:-true}" == true ; then
+	if test "${pallur_bundle_timestamp_flush:-true}" == true ; then
 		touch -- "${_workbench}/containers/${_container}/.outputs/bundle.timestamp"
 	fi
 	

@@ -1,3 +1,2 @@
 mariadb
 glibc-32bit
-strace

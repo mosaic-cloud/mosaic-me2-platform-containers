@@ -17,6 +17,7 @@ _me2_group=ro.ieat.mosaic.bundles
 _me2_arch=x86_64
 _linux_arch=x86_64
 _zypper_arch=x86_64
+_zypper_release=13.1
 
 _PATH_EXTRA="${PATH_EXTRA:-}"
 _PATH_CLEAN="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
@@ -119,11 +120,11 @@ else
 	_bundle_timestamp="$( date -u '+%s' )"
 fi
 
-_distribution_version="${mosaic_distribution_version:-0.7.0}"
+_distribution_version="${pallur_distribution_version:-0.7.0_dev}"
 _bundle_name="$( basename -- "$( readlink -e -- . )" )"
 _bundle_name="${_bundle_name//-/_}"
-_bundle_version="${mosaic_bundle_version:-${_distribution_version}}"
-_bundle_revision="${mosaic_bundle_revision:-${_bundle_timestamp}}"
+_bundle_version="${pallur_bundle_version:-${_distribution_version}}"
+_bundle_revision="${pallur_bundle_revision:-${_bundle_timestamp}}"
 
 
 _sed_variables=(

@@ -93,7 +93,7 @@ srcdir = sys.argv[2]
 if not os.path.exists(srcdir):
     print >>sys.stderr, "Source directory does not exist"
 with zipfile.ZipFile(destfile, 'w', allowZip64 = True, compression = zipfile.ZIP_DEFLATED) as bundle:
-    bundle.comment = "manually made mosaic bundle"
+    bundle.comment = "custom bundle"
     for dirpath, dirnames, filenames in os.walk(srcdir):
         arc_dir = os.path.relpath(os.path.abspath(dirpath), srcdir)
         for dir_file in filenames:
