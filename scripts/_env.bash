@@ -23,6 +23,8 @@ _PATH_EXTRA="${PATH_EXTRA:-}"
 _PATH_CLEAN="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 _PATH="$( echo "${_tools}/bin:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
 
+_HOME="${HOME:-${_tools}/home}"
+
 
 _zypper_bin="$( PATH="${_PATH}" type -P -- zypper || true )"
 if test -z "${_zypper_bin}" ; then
@@ -58,6 +60,12 @@ _zip_bin="$( PATH="${_PATH}" type -P -- zip || true )"
 if test -z "${_zip_bin}" ; then
 	echo "[ww] missing \`zip\` executable in path: \`${_PATH}\`; ignoring!" >&2
 	_zip_bin=zip
+fi
+
+_unzip_bin="$( PATH="${_PATH}" type -P -- unzip || true )"
+if test -z "${_unzip_bin}" ; then
+	echo "[ww] missing \`unzip\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_unzip_bin=unzip
 fi
 
 
@@ -129,6 +137,7 @@ _bundle_revision="${pallur_bundle_revision:-${_bundle_timestamp}}"
 
 _sed_variables=(
 	sed -r
+			-e ': loop'
 			-e 's#@\{distribution_version\}#'"${_distribution_version}"'#g'
 			-e 's#@\{bundle_name\}#'"${_bundle_name}"'#g'
 			-e 's#@\{bundle_version\}#'"${_bundle_version}"'#g'
@@ -137,3 +146,18 @@ _sed_variables=(
 			-e 's#@\{me2_group\}#'"${_me2_group}"'#g'
 			-e 's#@\{me2_arch\}#'"${_me2_arch}"'#g'
 )
+
+while read _variable _variable_value ; do
+	_sed_variables+=(
+			-e 's#@\{'"${_variable}"'\}#'"${_variable_value}"'#g'
+	)
+done < <(
+	if test -e "${_sources}/variables.txt" ; then
+		cat -- "${_sources}/variables.txt"
+	fi
+)
+
+_sed_variables+=(
+		-e 't loop'
+)
+

@@ -14,7 +14,7 @@ echo "[ii] applying overlays..." >&2
 while read _prefix _type _overlay ; do
 	
 	case "${_type}" in
-		( curl-tar-gz )
+		( curl-tar-gz | curl-zip )
 			if ! test -e "${_outputs}/rootfs/${_prefix}" ; then
 				mkdir -p -m 0755 -- "${_outputs}/rootfs/${_prefix}"
 			fi
@@ -28,6 +28,7 @@ while read _prefix _type _overlay ; do
 	
 	case "${_type}" in
 		( curl-tar-gz )
+			echo "[ii] fetching \`${_overlay}\`..." >&2
 			env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
 					-- "${_overlay}" \
 			| env -i "${_generic_env[@]}" "${_tar_bin}" \
@@ -39,7 +40,19 @@ while read _prefix _type _overlay ; do
 					--owner=0 --group=0 \
 					--directory="${_outputs}/rootfs/${_prefix}"
 		;;
+		( curl-zip )
+			echo "[ii] fetching \`${_overlay}\`..." >&2
+			_archive="${_temporary}/download-$$-${RANDOM}.zip"
+			env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
+					-- "${_overlay}" \
+				>|"${_archive}"
+			env -i "${_generic_env[@]}" "${_unzip_bin}" \
+					-d "${_outputs}/rootfs/${_prefix}" \
+					"${_archive}"
+			rm -- "${_archive}"
+		;;
 		( curl-file | curl-file+* )
+			echo "[ii] fetching \`${_overlay}\`..." >&2
 			env -i "${_curl_env[@]}" "${_curl_bin}" "${_curl_arguments[@]}" \
 					-- "${_overlay}" \
 				>"${_outputs}/rootfs/${_prefix}"
@@ -48,6 +61,9 @@ while read _prefix _type _overlay ; do
 		( sources-file | sources-file+* )
 			cp --no-preserve=all -L -T -- "${_sources}/${_overlay}" "${_outputs}/rootfs/${_prefix}"
 			chmod 444 -- "${_outputs}/rootfs/${_prefix}"
+		;;
+		( mkdir )
+			mkdir -p -m 0755 -- "${_outputs}/rootfs/${_prefix}"
 		;;
 		( * )
 			false
@@ -60,6 +76,12 @@ while read _prefix _type _overlay ; do
 		;;
 		( *+* )
 			false
+		;;
+	esac
+	
+	case "${_type}" in
+		( curl-file | curl-file+x | sources-file | sources-file+x )
+			"${_sed_variables[@]}" -i -- "${_outputs}/rootfs/${_prefix}"
 		;;
 	esac
 	

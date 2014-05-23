@@ -8,6 +8,10 @@ fi
 
 while read _container ; do
 	
+	if test -e "${_workbench}/containers/${_container}/sources/.disabled" ; then
+		continue
+	fi
+	
 	echo "[ii] preparing \`${_container}\`..." >&2
 	"${_workbench}/containers/${_container}/scripts/prepare"
 	echo "[--]" >&2
@@ -29,7 +33,8 @@ while read _container ; do
 	fi
 	
 done < <(
-	find "${_workbench}/containers" -xdev -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
+	find "${_workbench}/containers" -xdev -mindepth 1 -maxdepth 1 -type d -printf '%f\n' \
+	| sort
 )
 
 

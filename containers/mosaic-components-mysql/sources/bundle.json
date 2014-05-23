@@ -10,7 +10,7 @@
 	"configuration": {
 		"entrypoints": {
 			"container-bundle.init":
-					"/opt/mosaic-components-mysql/bin/mosaic-components-mysql--run-container %{config_fd}"
+					"/opt/@{bundle_name}/bin/@{bundle_name}--run-container %{config_fd}"
 		},
 		"environment": {}
 	}
