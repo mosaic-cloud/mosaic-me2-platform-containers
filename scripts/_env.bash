@@ -105,6 +105,8 @@ _zypper_install_arguments=(
 _zypper_env=(
 		"${_generic_env[@]}"
 )
+#_zypper_repos_core_url=http://download.opensuse.org/
+_zypper_repos_core_url=http://ftp.roedu.net/mirrors/opensuse.org/
 
 _curl_arguments=(
 		# --progress-bar

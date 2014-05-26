@@ -13,22 +13,28 @@ mkdir -m 0755 -- "${_outputs}/rootfs"
 echo "[ii] installing core repositories..." >&2
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
-		"http://download.opensuse.org/update/${_zypper_release}" opensuse--updates--oss
+		"${_zypper_repos_core_url}/update/${_zypper_release}" opensuse--updates--oss
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
-		"http://download.opensuse.org/distribution/${_zypper_release}/repo/oss" opensuse--packages--oss
+		"${_zypper_repos_core_url}/distribution/${_zypper_release}/repo/oss" opensuse--packages--oss
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
-		"http://download.opensuse.org/update/${_zypper_release}-non-oss" opensuse--updates--non-oss
+		"${_zypper_repos_core_url}/update/${_zypper_release}-non-oss" opensuse--updates--non-oss
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
-		"http://download.opensuse.org/distribution/${_zypper_release}/repo/non-oss" opensuse--packages--non-oss
+		"${_zypper_repos_core_url}/distribution/${_zypper_release}/repo/non-oss" opensuse--packages--non-oss
+
+
+echo "[ii] installing custom repositories..." >&2
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
 		"http://ftp.info.uvt.ro/mos/opensuse/${_zypper_release}/packages" custom--packages--a
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_addrepo_arguments[@]}" \
 		"http://jenkins.ieat.ro/repos/development" custom--packages--b
+
+
+echo "[ii] refreshing repositories..." >&2
 
 setarch "${_linux_arch}" -- env -i "${_zypper_env[@]}" "${_zypper_bin}" "${_zypper_refresh_arguments[@]}"
 
