@@ -31,6 +31,14 @@ if test ! -e "${_outputs}" ; then
 fi
 
 
+if test ! -e "${_HOME}" ; then
+	mkdir -- "${_HOME}"
+fi
+if test ! -e "${_TMPDIR}" ; then
+	mkdir -- "${_TMPDIR}"
+fi
+
+
 touch -d "$( date -u -d "@${_bundle_timestamp}" )" -- "${_outputs}/bundle.timestamp"
 
 
