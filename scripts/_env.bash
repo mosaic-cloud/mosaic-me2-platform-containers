@@ -6,12 +6,15 @@ export -n BASH_ENV
 
 
 _workbench="$( readlink -e -- . )"
-_repositories="${_workbench}/repositories"
 _sources="${_workbench}/sources"
 _scripts="${_workbench}/scripts"
 _outputs="${_workbench}/.outputs"
-_tools="${_workbench}/.tools"
-_temporary="/tmp"
+_tools="${pallur_tools:-${_workbench}/.tools}"
+_temporary="${pallur_temporary:-${pallur_TMPDIR:-${TMPDIR:-/tmp}}}"
+
+_PATH="${pallur_PATH:-${_tools}/bin:${PATH}}"
+_HOME="${pallur_HOME:-${HOME}}"
+_TMPDIR="${pallur_TMPDIR:-${TMPDIR:-${_temporary}}}"
 
 _me2_group=ro.ieat.mosaic.bundles
 _me2_arch=x86_64
@@ -21,9 +24,7 @@ _zypper_release=13.1
 
 _PATH_EXTRA="${PATH_EXTRA:-}"
 _PATH_CLEAN="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
-_PATH="$( echo "${_tools}/bin:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
-
-_HOME="${HOME:-${_tools}/home}"
+_PATH="$( echo "${_PATH}:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
 
 
 _zypper_bin="$( PATH="${_PATH}" type -P -- zypper || true )"
@@ -71,8 +72,8 @@ fi
 
 _generic_env=(
 		PATH="${_PATH}"
-		HOME="${HOME:-${_tools}/home}"
-		TMPDIR="${_temporary}"
+		HOME="${_HOME}"
+		TMPDIR="${_TMPDIR}"
 )
 
 _zypper_arguments=(
@@ -162,4 +163,3 @@ done < <(
 _sed_variables+=(
 		-e 't loop'
 )
-
