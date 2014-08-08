@@ -29,44 +29,44 @@ _PATH="$( echo "${_PATH}:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
 
 _zypper_bin="$( PATH="${_PATH}" type -P -- zypper || true )"
 if test -z "${_zypper_bin}" ; then
-	echo "[ww] missing \`zypper\` (Zipper) executable in path: \`${_PATH}\`; ignoring!" >&2
-	_zypper_bin=zypper
+	echo "[ee] missing \`zypper\` (Zipper) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_zypper_bin=false
 fi
 
 _python2_bin="$( PATH="${_PATH}" type -P -- python2 || true )"
 if test -z "${_python2_bin}" ; then
-	echo "[ww] missing \`python2\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_python2_bin=python2
+	echo "[ee] missing \`python2\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_python2_bin=false
 fi
 
 _curl_bin="$( PATH="${_PATH}" type -P -- curl || true )"
 if test -z "${_curl_bin}" ; then
-	echo "[ww] missing \`curl\` (cURL) executable in path: \`${_PATH}\`; ignoring!" >&2
-	_curl_bin=curl
+	echo "[ee] missing \`curl\` (cURL) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_curl_bin=false
 fi
 
 _cpio_bin="$( PATH="${_PATH}" type -P -- cpio || true )"
 if test -z "${_cpio_bin}" ; then
-	echo "[ww] missing \`cpio\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_cpio_bin=cpio
+	echo "[ee] missing \`cpio\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_cpio_bin=false
 fi
 
 _tar_bin="$( PATH="${_PATH}" type -P -- tar || true )"
 if test -z "${_tar_bin}" ; then
-	echo "[ww] missing \`tar\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_tar_bin=tar
+	echo "[ee] missing \`tar\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_tar_bin=false
 fi
 
 _zip_bin="$( PATH="${_PATH}" type -P -- zip || true )"
 if test -z "${_zip_bin}" ; then
-	echo "[ww] missing \`zip\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_zip_bin=zip
+	echo "[ee] missing \`zip\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_zip_bin=false
 fi
 
 _unzip_bin="$( PATH="${_PATH}" type -P -- unzip || true )"
 if test -z "${_unzip_bin}" ; then
-	echo "[ww] missing \`unzip\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_unzip_bin=unzip
+	echo "[ee] missing \`unzip\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_unzip_bin=false
 fi
 
 
