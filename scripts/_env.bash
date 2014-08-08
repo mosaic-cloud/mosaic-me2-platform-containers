@@ -136,6 +136,7 @@ _bundle_name="$( basename -- "$( readlink -e -- . )" )"
 _bundle_name="${_bundle_name//-/_}"
 _bundle_version="${pallur_bundle_version:-${_distribution_version}}"
 _bundle_revision="${pallur_bundle_revision:-${_bundle_timestamp}}"
+_artifacts_cache="${pallur_artifacts:-}"
 
 
 _sed_variables=(
