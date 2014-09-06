@@ -80,7 +80,7 @@ EOS
 ####
 
 ####
-env -i "${_python2_env[@]}" "${_python2_bin}" "${_python2_arguments[@]}" /dev/fd/3 "${_outputs}/bundle.mb" "${_outputs}/bundle" 3<<'EOS'
+env -i "${_python_env[@]}" "${_python_bin}" "${_python_arguments[@]}" /dev/fd/3 "${_outputs}/bundle.mb" "${_outputs}/bundle" 3<<'EOS'
 import os
 import sys
 import zipfile

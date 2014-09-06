@@ -33,10 +33,10 @@ if test -z "${_zypper_bin}" ; then
 	_zypper_bin=false
 fi
 
-_python2_bin="$( PATH="${_PATH}" type -P -- python2 || true )"
-if test -z "${_python2_bin}" ; then
-	echo "[ee] missing \`python2\` executable in path: \`${_PATH}\`; ignoring!" >&2
-	_python2_bin=false
+_python_bin="$( PATH="${_PATH}" type -P -- python || true )"
+if test -z "${_python_bin}" ; then
+	echo "[ee] missing \`python\` executable in path: \`${_PATH}\`; ignoring!" >&2
+	_python_bin=false
 fi
 
 _curl_bin="$( PATH="${_PATH}" type -P -- curl || true )"
@@ -117,10 +117,10 @@ _curl_env=(
 		"${_generic_env[@]}"
 )
 
-_python2_arguments=(
+_python_arguments=(
 		-B -E
 )
-_python2_env=(
+_python_env=(
 		"${_generic_env[@]}"
 )
 
