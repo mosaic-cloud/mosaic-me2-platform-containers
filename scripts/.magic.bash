@@ -20,12 +20,8 @@ while read _container ; do
 	"${_workbench}/containers/${_container}/scripts/package"
 	echo "[--]" >&2
 	
-	echo "[ii] deploying \`${_container}\`..." >&2
-	if test "${pallur_deploy_skip:-true}" != true ; then
-		"${_workbench}/containers/${_container}/scripts/deploy"
-	else
-		echo "[ww]   -- skipped!" >&2
-	fi
+	echo "[ii] publishing \`${_container}\`..." >&2
+	"${_workbench}/containers/${_container}/scripts/publish"
 	echo "[--]" >&2
 	
 	if test "${pallur_bundle_timestamp_flush:-true}" == true ; then
