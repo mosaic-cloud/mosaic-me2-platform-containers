@@ -6,29 +6,14 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 
+## chunk::3c8b019c663118b00172b22aeae97568::begin ##
 if test ! -e "${_temporary}" ; then
-	if test -L "${_temporary}" ; then
-		_temporary_store="$( readlink -- "${_temporary}" )"
-	else
-		_temporary_store="${_temporary}"
-	fi
-	if test ! -e "${_temporary_store}" ; then
-		mkdir -- "${_temporary_store}"
-	fi
+	mkdir -- "${_temporary}"
 fi
-
-
 if test ! -e "${_outputs}" ; then
-	if test -L "${_outputs}" ; then
-		_outputs_store="$( readlink -- "${_outputs}" )"
-	else
-		_outputs_store="${_temporary}/$( basename -- "${_workbench}" )--$( readlink -m -- "${_outputs}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
-		ln -s -T -- "${_outputs_store}" "${_outputs}"
-	fi
-	if test ! -e "${_outputs_store}" ; then
-		mkdir -- "${_outputs_store}"
-	fi
+	mkdir -- "${_outputs}"
 fi
+## chunk::3c8b019c663118b00172b22aeae97568::end ##
 
 
 if test ! -e "${_HOME}" ; then
